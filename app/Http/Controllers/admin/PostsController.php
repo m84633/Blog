@@ -98,9 +98,11 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,Post $post)
     {
-        //
+        $post->update($request->all());
+        $post->tags()->sync($request->tag);
+        return redirect()->route('admin.posts.index');
     }
 
     /**

@@ -12,7 +12,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1><b>新增類型</b><a class="float-right btn btn-info" href={{ route('admin.types.create') }} role="button">新增類型</a></h1>
+            <h1><b>文章類型</b><a class="float-right btn btn-info" href={{ route('admin.types.create') }} role="button">新增類型</a></h1>
 
           </div>
           <div class="col-sm-6">
@@ -51,7 +51,12 @@
                     <td>{{ ($loop->index)+1 }}</td>
                     <td>{{ $type->name }}</td>
                     <td><a href={{ route('admin.types.edit',$type->id) }}><i class="ml-3 fas fa-edit"></i></a></td>
-                    <td><i class="ml-3 fas fa-trash-alt"></i></td>
+                    <td><a href="#" onclick="event.preventDefault();if(confirm('是否要刪除?')){document.getElementById('delete{{ $type->id}}').submit();} "><i class="ml-3 fas fa-trash-alt"></i></a>
+                       <form id="delete{{ $type->id}}" style="display: hidden" class="delete" action={{ route('admin.types.destroy',$type->id) }} method="POST">
+                         @csrf
+                          @method('DELETE')
+                      </form> 
+                    </td>
                   </tr>
                   @endforeach
                   </tbody>

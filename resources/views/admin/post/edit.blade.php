@@ -38,31 +38,33 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form role="form">
+              <form role="form" action="{{ route('admin.posts.update',$post->id) }}" method="post">
+                @csrf
+                @method('patch')              
                 <div class="card-body">
                 	<div class="row">
 		                  <div class="col-lg-6 form-group">
 		                    <label for="exampleInputEmail1">標題</label>
-		                    <input type="text" class="form-control" id="exampleInputEmail1" value="{{ $post->title }}">
+		                    <input name="title" type="text" class="form-control" id="exampleInputEmail1" value="{{ $post->title }}">
 		                  </div>
 		                  <div class="col-lg-6 form-group">
-		                    <label for="exampleInputPassword1">作者</label>
-		                    <input type="text" class="form-control" id="exampleInputPassword1" value="{{ $post->user->name }}" >
+		                    <label for="exampleInputPassword1" >作者</label>
+		                    <input type="text" class="form-control" id="exampleInputPassword1" value="{{ $post->user->name }}" readonly >
 		                  </div>
                     </div>
                 <div class="form-group">
                   <label>類型</label>
-                  <select class="form-control select2" style="width: 100%;">
+                  <select name="type" class="form-control select2" style="width: 100%;">
                     <option >請選擇...</option>
                     @foreach($types as $type)
-                    <option value="$type->id" @if($post->type == $type->id)selected @endif>{{ $type->name }}</option>
+                    <option value="{{ $type->id }}" @if($post->type == $type->id)selected @endif>{{ $type->name }}</option>
                     @endforeach
                     
                   </select>
                 </div>
                   <div class="form-group">
                   <label>Tags</label>
-                  <select class="select2" multiple="multiple" data-placeholder="請選擇..." style="width: 100%;">
+                  <select name="tag[]" class="select2" multiple="multiple" data-placeholder="請選擇..." style="width: 100%;">
                     @foreach($tags as $tag)
                     <option value="{{ $tag->id }}" @foreach($post->tags as $ps)
                         @if($ps->id == $tag->id)

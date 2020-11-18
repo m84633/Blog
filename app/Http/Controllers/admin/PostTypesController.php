@@ -94,8 +94,10 @@ class PostTypesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(PostType $type)
     {
-        //
+        $type->posts()->delete();
+        $type->delete();
+        return redirect()->route('admin.types.index');
     }
 }
