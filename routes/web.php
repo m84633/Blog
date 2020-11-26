@@ -31,8 +31,8 @@ Route::get('fevor', function()
         //結論:collect的話,$a->title == $a['title']; array只能用[]
     $when=now();
     echo $when;
-});
-
+}); 
+ 
 
 
 //測試static

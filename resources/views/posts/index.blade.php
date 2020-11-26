@@ -12,7 +12,7 @@
         color:DodgerBlue;
 }
     a.thumb{
-        text-decoration:none;
+        text-decoration:none; 
 }
 @endsection
 @section('test')
@@ -70,7 +70,7 @@
                         
             </h4>
             <hr>
-            @if(count($posts) == 0)
+            @if(count($posts) == 0 && !isset($user_search))
                 <p class="text-center">
                     沒有任何文章
                 </p>
