@@ -28,9 +28,7 @@ class PostsController extends Controller
     public function index()
     {   
        $posts=Post::orderBy('created_at','DESC')->paginate(5);
-       $truncated = Str::limit('大家好啊', 2, ' (...)');
-
-
+       // $truncated = Str::limit('大家好啊', 2, ' (...)');
         return view('admin.post.post',compact('posts'));
     }
 
@@ -42,9 +40,9 @@ class PostsController extends Controller
     public function create()
     {   
         if (Auth::user()->can('admin.posts.create')) {
-        $post_types=PostType::all();
-        $tags=Tags::all();
-        return view('admin.post.create',compact('post_types','tags'));
+            $post_types=PostType::all();
+            $tags=Tags::all();
+            return view('admin.post.create',compact('post_types','tags'));
        }
        return redirect()->back();
     }

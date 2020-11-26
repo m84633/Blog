@@ -12,8 +12,9 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
+            @can('usersadd',auth()->user())
             <h1><b>管理者列表</b> <a class="float-right btn btn-info" href={{ route('admin.users.create') }} role="button">新增管理者</a></h1>
-
+            @endcan
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -42,8 +43,12 @@
                     <th>順序</th>
                     <th>名稱</th>
                     <th>帳號權限</th>
+                    @can('usersadd',auth()->user())
                     <th>編輯</th>
+                    @endcan
+                    @can('usersdel',auth()->user())
                     <th>刪除</th>
+                    @endcan
                   </tr>
                   </thead>
                   <tbody>
@@ -58,13 +63,18 @@
                             {{ $role->name }},
                             @endif
                         @endforeach</td>
-                        <td><a href={{ route('admin.users.edit',$user->id) }}><i class="ml-3 fas fa-edit"></i></a></td>
-                        <td><a  id="submit{{ $user->id }}" onclick="event.preventDefault();if(confirm('是否要刪除?')){document.getElementById('delete{{ $user->id}}').submit();}" href="#"><i class="ml-3 fas fa-trash-alt"></i></a>
-                    <form id="delete{{ $user->id}}" style="display: hidden" class="delete" action={{ route('admin.users.destroy',$user->id) }} method="POST">
-                    @csrf
-                    @method('DELETE')
-                    </form></td>
-                      </tr>
+                        @can('usersupdate',auth()->user())
+                          <td><a href={{ route('admin.users.edit',$user->id) }}><i class="ml-3 fas fa-edit"></i></a></td>
+                        @endcan
+                        @can('usersdel',auth()->user())  
+                          <td><a  id="submit{{ $user->id }}" onclick="event.preventDefault();if(confirm('是否要刪除?')){document.getElementById('delete{{ $user->id}}').submit();}" href="#"><i class="ml-3 fas fa-trash-alt"></i></a>
+                            <form id="delete{{ $user->id}}" style="display: hidden" class="delete" action={{ route('admin.users.destroy',$user->id) }} method="POST">
+                            @csrf
+                            @method('DELETE')
+                            </form>
+                          </td>
+                        @endcan
+                    </tr>
                   @endforeach
                   
 
@@ -74,8 +84,12 @@
                     <th>順序</th>
                     <th>名稱</th>
                     <th>帳號權限</th>
+                    @can('usersadd',auth()->user())
                     <th>編輯</th>
+                    @endcan
+                    @can('usersdel',auth()->user())
                     <th>刪除</th>
+                    @endcan
                   </tr>
                   </tfoot>
                 </table>

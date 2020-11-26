@@ -35,19 +35,21 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
+              @can('usersupdate',auth()->user())
                <li class="nav-item">
                 <a href={{ route('admin.users.index') }} class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>使用者</p>
                 </a>
               </li>
+              @endcan
               <li class="nav-item">
                 <a href={{ route('admin.posts.index') }} class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>文章</p>
                 </a>
               </li>
-              @can('posts.types',Auth::user())
+              @can('types',Auth::user())
               <li class="nav-item">
                 <a href={{ route('admin.types.index') }} class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
@@ -55,7 +57,7 @@
                 </a>
               </li>
               @endcan
-              @can('posts.tags',Auth::user())
+              @can('tags',Auth::user())
               <li class="nav-item">
                 <a href={{ route('admin.tags.index') }} class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
@@ -63,18 +65,22 @@
                 </a>
               </li>
               @endcan
+              @can('roles',auth()->user())
               <li class="nav-item">
                 <a href={{ route('admin.roles.index') }} class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>角色</p>
                 </a>
               </li>
+              @endcan
+              @can('permissions',auth()->user())
               <li class="nav-item">
                 <a href={{ route('admin.permissions.index') }} class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>權限</p>
                 </a>
               </li>
+              @endcan
             </ul>
           </li>
           <li class="nav-item">

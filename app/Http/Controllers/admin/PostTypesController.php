@@ -16,9 +16,8 @@ class PostTypesController extends Controller
      */
     public function __construct()
     {
-        
         $this->middleware('auth:admin');
-        $this->middleware('can:posts.types');
+        $this->middleware('can:types');
     }
     
     public function index()

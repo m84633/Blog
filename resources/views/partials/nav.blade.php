@@ -1,6 +1,6 @@
 <nav class="navbar  navbar-expand-md navbar-light  table-success sticky-top navbar-shadow">
 	<div class="container">
-	    <a href="{{ route('practice') }}" class="navbar-brand">HelloBlog</a>
+	    <a href="{{ route('posts.index') }}" class="navbar-brand">HelloBlog</a>
 	    <form action="{{ route('search') }}" method="GET" class="form-inline" role="search">
 	        <input type="search" class="form-control form-control-md mr-md-2" name="keyword" placeholder="搜尋文章" aria-label="Search">
 	        <button type="submit" class="btn btn-md btn-outline-info my-2 my-md-0">

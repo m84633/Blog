@@ -105,6 +105,26 @@ class PostPolicy
         return $this->getPermission($user,7);
     }
 
+    public function usersadd(Admin $user){
+        return $this -> getPermission($user,5);
+    } 
+
+     public function usersupdate(Admin $user){
+            return $this -> getPermission($user,8);
+    } 
+     
+     public function usersdel(Admin $user){
+            return $this -> getPermission($user,4);
+    } 
+
+    public function permissions(Admin $user){
+        return $this -> getPermission($user,9);
+    } 
+
+    public function roles(Admin $user){
+        return $this -> getPermission($user,11);
+    }
+
     protected function getPermission($user,$p_id){
     foreach($user->roles as $role){
             foreach ($role->permissions as $permission) {

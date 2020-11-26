@@ -21,16 +21,20 @@ class UsersController extends Controller
      */
         public function __construct()
     {
-        
         $this->middleware('auth:admin');
+       //  if (Auth::user()->can('admin.posts.create')) {
+       //      return redirect()->back();
+       // }
     }
 
     public function index()
     {   
-
-        $users=Admin::paginate(5);
-        return view('admin.users.users',compact('users'));
-        //$request->status??$request['status']=0;沒傳入此欄位的話新增此欄位並設成0
+        if(auth()->user()->can('usersupdate')){
+            $users=Admin::paginate(5);
+            return view('admin.users.users',compact('users'));
+            //$request->status??$request['status']=0;沒傳入此欄位的話新增此欄位並設成0
+        }
+        return redirect()->route('admin.home');
     }
 
     /**
@@ -40,8 +44,11 @@ class UsersController extends Controller
      */
     public function create()
     {   
-        $roles=Role::all();
-        return view('admin.users.create',compact('roles'));
+        if(Auth::user()->can('usersadd')){
+            $roles=Role::all();
+            return view('admin.users.create',compact('roles'));
+        }
+        return redirect()->route('admin.home');
     }
 
     /**
@@ -100,8 +107,11 @@ class UsersController extends Controller
      */
     public function edit(Admin $user)
     {   
-        $roles=Role::all();
-        return view('admin.users.edit',compact('user','roles'));
+        if(auth()->user()->can('usersupdate')){
+            $roles=Role::all();
+            return view('admin.users.edit',compact('user','roles'));
+        }
+        return redirect()->route('admin.home');
     }
 
     /**

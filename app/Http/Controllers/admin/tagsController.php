@@ -21,7 +21,7 @@ class tagsController extends Controller
     {
         
         $this->middleware('auth:admin');
-        $this->middleware('can:posts.tags');
+        $this->middleware('can:tags');
     }
 
     

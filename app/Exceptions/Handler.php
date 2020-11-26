@@ -3,8 +3,9 @@
 namespace App\Exceptions;
 
 use Exception;
-use log;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use log;
 
 class Handler extends ExceptionHandler
 {
@@ -47,6 +48,12 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+            if ($exception instanceof AuthorizationException) {
+                return redirect()->route('admin.home');
+                    //or simply
+                    // return view('errors.forbidden');
+                    //but this will return an OK, 200 response.
+        }
         return parent::render($request, $exception);
     }
 }

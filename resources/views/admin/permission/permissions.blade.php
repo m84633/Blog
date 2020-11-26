@@ -66,7 +66,7 @@
                   <tbody>
                     @foreach($permissions as $permission)
                     <tr>
-                      <td>{{ ($loop->index)+1 }}</td>
+                        <td>{{ ($loop->index)+1 }}</td>
                         <td>{{ $permission->name }}</td>
                         <td>{{ $permission->for }}</td>
                         <td><a href={{ route('admin.permissions.edit',$permission->id) }}><i class="ml-3 fas fa-edit"></i></a></td>
