@@ -140,6 +140,75 @@
                     </div>
                 </div>
             @endforeach
+            @isset($user_search)
+                @foreach($user_search as $user)
+                @foreach($user->posts as $post)
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="container-fluid p-0">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h4 class="card-title">{{ $post['title'] }}</h4>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    @if($post->postType != null)
+                                        <span class="badge badge-secondary ml-2">
+                                            {{ $post->postType->name }}
+                                        </span>
+                                    @endif
+                                </div>
+                                <div class="col-md-4 text-right">
+                                    {{ $post->created_at->toDateString() }}
+                                </div>
+                            </div>
+                            <hr class="my-2 mx-0">
+                            <div class="row">
+                                <div class="col-md-12" style="height: 100px; overflow: hidden;">
+                                    <p class="card-text">
+                                        {!! htmlspecialchars_decode($post->content) !!}
+                                    </p> 
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-md-8">
+                                    @auth
+                                        @if (Auth::user()->isAdmin() || Auth::id() == $post->user_id)
+                                            <form action="{{ route('posts.destroy', ['id' => $post->id]) }}" method="POST">
+                                                @csrf 
+                                                <span class="mr-1">{{ $post->comments->count() }}&nbsp;則回應</span>
+
+                                                <like equser="{{ $post->likes }}" likecount="{{ $post->likes->count() }}"  post_id="{{ $post->id }}" user_id="{{ auth()->id() }}">{{ $post->likes->count() }}</like>
+                                                <a href="{{ route('posts.edit', ['id' => $post->id]) }}" class=" btn btn-md btn-primary">
+                                                    <i class="fas fa-pencil-alt"></i>
+                                                    <span class="pl-1">編輯文章</span>
+                                                </a>
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                <button onclick="return del()" type="submit" class="btn btn-md btn-danger">
+                                                    <i class="fas fa-trash"></i>
+                                                    <span class="pl-1">刪除文章</span>
+                                                </button>
+                                            </form>
+                                        @else
+                                            <span class="mr-1">{{ $post->comments()->count() }}&nbsp;則回應</span>
+                                             <like equser="{{ $post->likes }}" likecount="{{ $post->likes->count() }}"  post_id="{{ $post->id }}" user_id="{{ auth()->id() }}">{{ $post->likes->count() }}</like>
+                                        @endif
+                                    @else
+                                        <span class="mr-1">{{ $post->comments()->count() }}&nbsp;則回應</span>
+                                         <like likecount="{{ $post->likes->count() }}"  post_id="{{ $post->id }}" user_id="{{ auth()->id() }}">{{ $post->likes->count() }}</like>
+                                    @endauth 
+                                </div>
+                                <div class="col-md-4 mt-md-2">
+                                    <a href="{{ route('posts.show', ['id' => $post->id]) }}" class="float-right card-link">繼續閱讀...</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+            @endforeach
+            @endisset
         </div>
 
         <div class="col-md-4">
@@ -167,12 +236,12 @@
     </div>
     <div class="row pt-2">
         <div class="col-md-8">
-            @if(isset($keyword))
+{{--             @if(isset($keyword))
                 {{ $posts->appends(['keyword' => $keyword])->render() }}
             @else
                 {{$posts->links() }}
                 {{$posts->url(app('request')->input('page'))}}
-            @endif
+            @endif --}}
         </div>
        
     </div>

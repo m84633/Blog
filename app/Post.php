@@ -17,7 +17,7 @@ class Post extends Model
 	];
 
 	public function user(){
-		return $this->belongsTo(UserEloquent::class);
+		return $this->belongsTo('App\User');
 	}
 
 	public function postType(){

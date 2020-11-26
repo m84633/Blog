@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Post as PostEloquent;
 use App\Post;
 use App\PostType as PostTypeEloquent;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
@@ -20,7 +21,6 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        
         $this->middleware('auth:admin');
     }
 
@@ -43,8 +43,11 @@ class HomeController extends Controller
             return Redirect::back();
         }
         $keyword = $request->keyword;
+        $user_posts=User::where('name','LIKE',"%$keyword%");
         $posts = PostEloquent::where('title', 'LIKE', "%$keyword%")->orwhere('content', 'LIKE', "%$keyword%")->orderBy('created_at', 'DESC')->paginate(5);
-        return View::make('posts.index', compact('posts', 'keyword')); 
+        dd($user_posts);
+        dd($posts);
+        return View::make('posts.index', compact('posts', 'keyword','user_posts')); 
     }
     public function practice(){
         $collection = collect([

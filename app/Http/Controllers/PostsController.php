@@ -36,11 +36,10 @@ class PostsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   
+    {    
         
         $time=now();
         $posts = PostEloquent::orderBy('created_at', 'DESC')->paginate(5);
-
         if (Auth::viaRemember()) {
             $auth=1;
         }else{

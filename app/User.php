@@ -6,7 +6,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use URL;
-use App\Post as PostEloquent;
+use App\Post;
 
 class User extends Authenticatable
 {
@@ -40,7 +40,7 @@ class User extends Authenticatable
     ];
 
     public function posts(){
-		return $this->hasMany(PostEloquent::class);
+		return $this->hasMany('App\Post','user_id');
 	}
 
     public function socialuser(){

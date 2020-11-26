@@ -31,7 +31,7 @@ Route::get('fevor', function()
         //結論:collect的話,$a->title == $a['title']; array只能用[]
     $when=now();
     echo $when;
-})->name('search');
+});
 
 
 
@@ -110,7 +110,7 @@ Route::namespace('admin')->name('admin.')->group(function () {
         'show',
     ]);
     Route::get('admin/avatar', 'UsersController@showAvatar')->name('showAvatar');
-    Route::resource('admin/users', 'usersController')->except([
+    Route::resource('admin/users', 'UsersController')->except([
         'show',
     ]);
     Route::resource('admin/roles', 'RolesController')->except([

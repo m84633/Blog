@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Post as PostEloquent;
 use App\PostType as PostTypeEloquent;
+use App\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Redirect;
 use View;
-use Illuminate\Support\Collection;
 class HomeController extends Controller
 {
     /**
@@ -35,8 +36,10 @@ class HomeController extends Controller
             return Redirect::back();
         }
         $keyword = $request->keyword;
-        $posts = PostEloquent::where('title', 'LIKE', "%$keyword%")->orwhere('content', 'LIKE', "%$keyword%")->orderBy('created_at', 'DESC')->paginate(5);
-        return View::make('posts.index', compact('posts', 'keyword')); 
+        $user_search=User::where('name','LIKE',"%$keyword%")->get();
+        // dd($user_search);
+        $posts = PostEloquent::where('title', 'LIKE', "%$keyword%")->orwhere('content', 'LIKE', "%$keyword%")->orderBy('created_at', 'DESC')->get();
+        return View::make('posts.index', compact('posts', 'keyword','user_search')); 
     }
     public function practice(){
         $collection = collect([
