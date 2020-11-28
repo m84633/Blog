@@ -85,7 +85,7 @@
                         <textarea name="content"></textarea>
                         <script>
                         CKEDITOR.replace( 'content' );
-                           </script>
+                        </script>
                     </div>
 
                 <!-- /.card-body -->

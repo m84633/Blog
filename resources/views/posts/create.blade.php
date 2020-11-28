@@ -2,6 +2,11 @@
 
 @section('title', '新增文章')
 
+@section('test')
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+@endsection
+
 @section('content')
 <div class="container">
     <div class="row">
@@ -41,6 +46,23 @@
                                     @endif
                                 </div>
                             </div>
+                            @isset($post_tags)
+                            <div class="form-group row">
+                                <label for="type" class="col-sm-2 col-form-label-sm text-md-right">Tags</label>
+                                <div class="col-sm-8">
+                                    <select name="tags[]" title="請選擇..."  class="form-control form-control-sm selectpicker {{ $errors->has('type') ? ' is-invalid' : '' }}" multiple>
+                                        @foreach($post_tags as $tag) 
+                                          <option value="{{ $tag->id }}" @if(old('tags')){{ in_array($tag->id,old('tags'))? 'selected' : '' }}@endif>{{ $tag->name }}</option>
+                                        @endforeach  
+                                    </select>
+                                    @if ($errors->has('tags'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('tags') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                            @endisset
                             <div class="form-group row">
                                 <label for="content" class="col-sm-2 col-form-label-sm text-md-right">內文</label>
                                 <div class="col-sm-8">

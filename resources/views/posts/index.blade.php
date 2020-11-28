@@ -60,12 +60,14 @@
                     @endauth
                 @endisset
 
-                @isset($keyword)
+                @if(isset($keyword))
                     搜尋：{{ $keyword }}
+                @elseif(isset($tag))
+                    Tag：{{ $tag }}
                 @else
                     所有文章
                 @endisset 
-                
+                 
                     
                         
             </h4>
@@ -81,7 +83,18 @@
                         <div class="container-fluid p-0">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <h4 class="card-title">{{ $post['title'] }}</h4>
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <h4 class="card-title">{{ $post['title'] }}</h4>
+                                        </div>
+                                        @if($post->tags)
+                                        <div class="col-md-4">
+                                            @foreach($post->tags as $tag)
+                                                <a href="{{ route('tagShow',$tag->slug) }}"><small class="float-right" style="border-radius: 5px;border: 1px solid gray;padding: 2px;margin-left: 3px;color: green">#{{ $tag->name }}</small></a>
+                                            @endforeach
+                                        </div>
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
                             <div class="row">
@@ -236,12 +249,12 @@
     </div>
     <div class="row pt-2">
         <div class="col-md-8">
-{{--             @if(isset($keyword))
-                {{ $posts->appends(['keyword' => $keyword])->render() }}
-            @else
+       @if(!isset($keyword))
+{{--                 {{ $posts->appends(['keyword' => $keyword])->render() }}
+            @else --}}
                 {{$posts->links() }}
-                {{$posts->url(app('request')->input('page'))}}
-            @endif --}}
+               {{--  {{$posts->url(app('request')->input('page'))}} --}}
+            @endif
         </div>
        
     </div>

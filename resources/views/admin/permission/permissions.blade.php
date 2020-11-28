@@ -70,7 +70,7 @@
                         <td>{{ $permission->name }}</td>
                         <td>{{ $permission->for }}</td>
                         <td><a href={{ route('admin.permissions.edit',$permission->id) }}><i class="ml-3 fas fa-edit"></i></a></td>
-                        <td><a  id="submit{{ $permission->id }}" onclick="event.preventDefault();if(confirm('是否要刪除?')){document.getElementById('delete{{ $permission->id}}').submit();}" href="#"><i class="ml-3 fas fa-trash-alt"></i></a>
+                        <td><a  id="submit{{ $permission->id }}" onclick="event.preventDefault();if(confirm('是否要刪除?')){document.getElementById('delete{{ $permission->id}}').submit();}" href="#"><i style="color: firebrick;" class="ml-3 fas fa-trash-alt"></i></a>
                     <form id="delete{{ $permission->id}}" style="display: hidden" class="delete" action={{ route('admin.permissions.destroy',$permission->id) }} method="POST">
                     @csrf
                     @method('DELETE')

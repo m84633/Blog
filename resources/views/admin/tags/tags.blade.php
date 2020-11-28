@@ -53,7 +53,7 @@
                         <td>{{ $tag->name }}</td>
                         <td>{{ $tag->slug }}</td>
                         <td><a href={{ route('admin.tags.edit',$tag->slug) }}><i class="ml-3 fas fa-edit"></i></a></td>
-                        <td><a  id="submit{{ $tag->id }}" onclick="event.preventDefault();if(confirm('是否要刪除?')){document.getElementById('delete{{ $tag->id}}').submit();}" href="#"><i class="ml-3 fas fa-trash-alt"></i></a>
+                        <td><a  id="submit{{ $tag->id }}" onclick="event.preventDefault();if(confirm('是否要刪除?')){document.getElementById('delete{{ $tag->id}}').submit();}" href="#"><i style="color: firebrick;" class="ml-3 fas fa-trash-alt"></i></a>
                     <form id="delete{{ $tag->id}}" style="display: hidden" class="delete" action={{ route('admin.tags.destroy',$tag->slug) }} method="POST">
                     @csrf
                     @method('DELETE')

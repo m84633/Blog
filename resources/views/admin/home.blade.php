@@ -27,7 +27,7 @@
       @foreach($posts as $post)
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">{!! htmlspecialchars($post->title) !!}</h3>
+          <h3 style="font-weight: bolder;" class="card-title">標題 : {!! htmlspecialchars($post->title) !!}</h3>
 
           <div class="card-tools">
             <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -40,7 +40,7 @@
         </div>
         <!-- /.card-body -->
         <div class="card-footer">
-          Footer
+          發布者 : {{ $post->user->name}}<div class="float-right">發布時間:{{ $post->created_at }}</div>
         </div>
         <!-- /.card-footer-->
       </div>

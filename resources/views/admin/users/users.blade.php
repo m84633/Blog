@@ -67,7 +67,7 @@
                           <td><a href={{ route('admin.users.edit',$user->id) }}><i class="ml-3 fas fa-edit"></i></a></td>
                         @endcan
                         @can('usersdel',auth()->user())  
-                          <td><a  id="submit{{ $user->id }}" onclick="event.preventDefault();if(confirm('是否要刪除?')){document.getElementById('delete{{ $user->id}}').submit();}" href="#"><i class="ml-3 fas fa-trash-alt"></i></a>
+                          <td><a  id="submit{{ $user->id }}" onclick="event.preventDefault();if(confirm('是否要刪除?')){document.getElementById('delete{{ $user->id}}').submit();}" href="#"><i style="color: firebrick;" class="ml-3 fas fa-trash-alt"></i></a>
                             <form id="delete{{ $user->id}}" style="display: hidden" class="delete" action={{ route('admin.users.destroy',$user->id) }} method="POST">
                             @csrf
                             @method('DELETE')

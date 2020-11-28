@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Comment as CommentEloquent;
-use App\Like;
 use App\Http\Requests\PostRequest;
+use App\Like;
 use App\Post as PostEloquent;
 use App\PostType as PostTypeEloquent;
+use App\Tags;
 use Auth;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -38,7 +39,7 @@ class PostsController extends Controller
     public function index()
     {    
         
-        $time=now();
+        // $time=now();
         $posts = PostEloquent::orderBy('created_at', 'DESC')->paginate(5);
         if (Auth::viaRemember()) {
             $auth=1;
@@ -46,7 +47,7 @@ class PostsController extends Controller
             $auth=0;
         }
 
-        return view::make('posts.index', compact('posts','auth','time'));
+        return view::make('posts.index', compact('posts'));
     }
 
     /**
@@ -57,8 +58,9 @@ class PostsController extends Controller
     public function create()
     {
         $post_types = PostTypeEloquent::orderBy('name', 'ASC')->get();
+        $post_tags = Tags::all();
     
-        return View::make('posts.create', compact('post_types'));
+        return View::make('posts.create', compact('post_types','post_tags'));
     }
 
     /**
@@ -73,6 +75,7 @@ class PostsController extends Controller
         //$request->except('user_id')
         $post->user_id = Auth::user()->id;
         $post->save();
+        $post->tags()->sync($request->tags);
         return Redirect::route('posts.index');
     }
 
@@ -101,7 +104,8 @@ class PostsController extends Controller
     {
         $post = PostEloquent::findOrFail($ids);
         $post_types = PostTypeEloquent::orderBy('name' , 'ASC')->get();
-        return View::make('posts.edit', compact('post', 'post_types'));
+        $post_tags = Tags::all();
+        return View::make('posts.edit', compact('post', 'post_types','post_tags'));
     }
 
     /**
@@ -116,7 +120,8 @@ class PostsController extends Controller
         //$post = PostEloquent::findOrFail($id);
 	    $post->fill($request->all());
 	    $post->save();
-	    return redirect()->route('posts.index',$post);
+        $post->tags()->sync($request->tags);
+	    return redirect()->route('posts.index');
     }
 
     /**
@@ -144,5 +149,11 @@ class PostsController extends Controller
             $like -> post_id = $request->post_id;
             $like->save();
         }
+    }
+
+    public function tagshow(Tags $tags){
+        $posts = $tags->posts()->paginate(5);
+        $tag = $tags->slug;
+         return view::make('posts.index', compact('posts','tag'));
     }
 }

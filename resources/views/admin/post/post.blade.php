@@ -67,7 +67,7 @@
                     <td><a href={{ route('admin.posts.edit',$post->id) }}><i class="ml-3 fas fa-edit"></i></a></td>
                     @endcan
                     @can('admin.posts.delete',Auth::user())
-                    <td><a  id="submit{{ $post->id }}" onclick="event.preventDefault();if(confirm('是否要刪除?')){document.getElementById('delete{{ $post->id}}').submit();}" href="#"><i class="ml-3 fas fa-trash-alt"></i></a>
+                    <td><a  id="submit{{ $post->id }}" onclick="event.preventDefault();if(confirm('是否要刪除?')){document.getElementById('delete{{ $post->id}}').submit();}" href="#"><i style="color: firebrick;" class="ml-3 fas fa-trash-alt"></i></a>
                     <form id="delete{{ $post->id}}" style="display: hidden" class="delete" action={{ route('admin.posts.destroy',$post->id) }} method="POST">
                     @csrf
                     @method('DELETE')

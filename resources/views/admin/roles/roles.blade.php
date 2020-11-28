@@ -67,7 +67,7 @@
                       <td>{{ ($loop->index)+1 }}</td>
                         <td>{{ $role->name }}</td>
                         <td><a href={{ route('admin.roles.edit',$role->id) }}><i class="ml-3 fas fa-edit"></i></a></td>
-                        <td><a  id="submit{{ $role->id }}" onclick="event.preventDefault();if(confirm('是否要刪除?')){document.getElementById('delete{{ $role->id}}').submit();}" href="#"><i class="ml-3 fas fa-trash-alt"></i></a>
+                        <td><a  id="submit{{ $role->id }}" onclick="event.preventDefault();if(confirm('是否要刪除?')){document.getElementById('delete{{ $role->id}}').submit();}" href="#"><i style="color: firebrick;" class="ml-3 fas fa-trash-alt"></i></a>
                     <form id="delete{{ $role->id}}" style="display: hidden" class="delete" action={{ route('admin.roles.destroy',$role->id) }} method="POST">
                     @csrf
                     @method('DELETE')

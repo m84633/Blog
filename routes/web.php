@@ -79,13 +79,18 @@ Route::get('event', function () {
 });
 
 Auth::routes();
+
+//test facades
 Route::get('/facadeex', function () {
     return Test::testingFacades();
 });
+
 Route::prefix('users')->name('users.')->group(function () {
     Route::get('avatar', 'UsersController1@showAvatar')->name('showAvatar');
     Route::post('avatar', 'UsersController1@uploadAvatar')->name('uploadAvatar');
 });
+
+Route::get('/tags/{tags}','PostsController@tagshow')->name('tagShow');
 
 Route::resource('posts', 'PostsController');
 Route::resource('posts/types', 'PostTypesController', ['except' => ['index']]);

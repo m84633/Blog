@@ -51,7 +51,7 @@
                     <td>{{ ($loop->index)+1 }}</td>
                     <td>{{ $type->name }}</td>
                     <td><a href={{ route('admin.types.edit',$type->id) }}><i class="ml-3 fas fa-edit"></i></a></td>
-                    <td><a href="#" onclick="event.preventDefault();if(confirm('是否要刪除?')){document.getElementById('delete{{ $type->id}}').submit();} "><i class="ml-3 fas fa-trash-alt"></i></a>
+                    <td><a href="#" onclick="event.preventDefault();if(confirm('是否要刪除?')){document.getElementById('delete{{ $type->id}}').submit();} "><i style="color: firebrick;" class="ml-3 fas fa-trash-alt"></i></a>
                        <form id="delete{{ $type->id}}" style="display: hidden" class="delete" action={{ route('admin.types.destroy',$type->id) }} method="POST">
                          @csrf
                           @method('DELETE')

@@ -26,7 +26,8 @@ class PostRequest extends FormRequest
         return [
             'title'=>'required|string',
             'type'=>'required|integer|exists:post_types,id',
-            'content'=>'required|string'
+            'content'=>'required|string',
+            'tags' => 'array',
         ];
     }
 }
