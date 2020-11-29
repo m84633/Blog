@@ -19,11 +19,12 @@
 <!-- AdminLTE App -->
 <script src={{ asset('admin/dist/js/adminlte.min.js') }}></script>
 <!-- AdminLTE for demo purposes -->
-<script src={{ asset('admin/dist/js/demo.js') }})></script>
+{{-- <script src={{ asset('admin/dist/js/demo.js') }})></script> --}}
 
 <script src={{ asset('admin/plugins/jquery-ui/jquery-ui.min.js') }} ></script>
 <script>
   $.widget.bridge('uibutton', $.ui.button)
 </script>
 @section('footer')
+
 @show

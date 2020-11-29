@@ -6,6 +6,7 @@ use App\Comment as CommentEloquent;
 use App\PostType as PostTypeEloquent;
 use App\Tags;
 use App\User as UserEloquent;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
@@ -43,4 +44,9 @@ class Post extends Model
 	public function likes(){
 		return $this->hasMany('App\Like','post_id');
 	}
+
+	// public function getCreatedAtAttribute($value){
+	// 	return Carbon::parse($value)->toDateString();
+	// 	return $value;
+	// }
 }

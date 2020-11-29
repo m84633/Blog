@@ -103,6 +103,7 @@ Route::prefix('login/social')->name('social.')->group(function () {
     Route::get('{provider}/callback', 'Auth\SocialController@getSocialCallback')->name('callback');
 });
 Route::get('practice', 'HomeController@practice')->name('practice');
+
 Route::namespace('admin')->name('admin.')->group(function () {
     Route::get('admin/home', 'HomeController@index')->name('home');
     Route::resource('admin/posts', 'PostsController')->except([
@@ -127,6 +128,13 @@ Route::namespace('admin')->name('admin.')->group(function () {
     Route::get('admin/login', 'Auth\LoginController@showLoginForm')->name('login');
     Route::post('admin/login', 'Auth\LoginController@login');
     Route::post('admin/logout', 'Auth\LoginController@logout')->name('logout');
+
+    //首頁vue拿資料
+    Route::post('getPosts', 'PostsController@getAllPosts');
+
+    //searchBar
+    Route::post('searchBack','PostsController@search');
+
 });
 // Route::get('foo', function () {
 // $b = 5;

@@ -3,7 +3,7 @@
 @include('admin.partials.head')
 <body class="hold-transition sidebar-mini">
 <!-- Site wrapper -->
-<div class="wrapper">
+<div class="wrapper" id="app">
 	@include('admin.partials.header')
 
 	@include('admin.partials.sidebar')
@@ -13,6 +13,6 @@
 	@show
 
 	@include('admin.partials.footer')
-
+	@stack('script')
 </body>	
 </html>

@@ -143,7 +143,6 @@ class PostsController extends Controller
             $check->delete();
             return 'delete';
         }else{
-
             $like=new Like();
             $like -> user_id = $request->user_id;
             $like -> post_id = $request->post_id;

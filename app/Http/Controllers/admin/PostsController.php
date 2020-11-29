@@ -7,6 +7,7 @@ use App\Http\Requests\PostRequest;
 use App\Post;
 use App\PostType;
 use App\Tags;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -113,5 +114,16 @@ class PostsController extends Controller
     {
         $post->delete();
         return redirect()->route('admin.posts.index');      
+    }
+
+    public function getAllPosts(){
+       return $posts=Post::with('user')->orderBy('created_at','DESC')->paginate(5);
+    }
+
+    public function search(Request $request){
+        $keyword = $request->keyword;
+        return Post::with('user')->where('title', 'LIKE', "%$keyword%")->orwhere('content', 'LIKE', "%$keyword%")->orWhereHas('user',function (Builder $query) use($keyword){
+                $query->where('name','LIKE',"%$keyword%");
+        })->orderBy('created_at', 'DESC')->get();
     }
 }

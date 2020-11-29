@@ -316,11 +316,14 @@
              },
              created: function(){
                 this.count=this.likecount
-                this.likeinfo=JSON.parse(this.equser);
-                for(let i=0;i<this.likeinfo.length;i++){
-                    if(this.likeinfo[i]['user_id']==this.user_id){
-                        return this.clicked=1
+                if(this.equser){
+                    this.likeinfo=JSON.parse(this.equser);
+                    for(let i=0;i<this.likeinfo.length;i++){
+                        if(this.likeinfo[i]['user_id']==this.user_id){
+                            return this.clicked=1
+                        }
                     }
+                    
                 }
              },
              // computed:{
@@ -340,7 +343,6 @@
             components:{
                 'like':like
             },
-
         })
     </script>
 @endpush
