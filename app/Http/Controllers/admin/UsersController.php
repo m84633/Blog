@@ -30,7 +30,7 @@ class UsersController extends Controller
     public function index()
     {   
         if(auth()->user()->can('usersupdate')){
-            $users=Admin::paginate(5);
+            $users=Admin::all();
             return view('admin.users.users',compact('users'));
             //$request->status??$request['status']=0;沒傳入此欄位的話新增此欄位並設成0
         }
@@ -151,5 +151,14 @@ class UsersController extends Controller
     {
         $user->delete();
         return redirect()->route('admin.users.index');
+    }
+
+    public function getAllUsers(){
+        if(auth()->user()->can('usersupdate')){
+            $users=Admin::with('roles')->paginate(5);
+            return $users;
+            //$request->status??$request['status']=0;沒傳入此欄位的話新增此欄位並設成0
+        }
+        return redirect()->route('admin.home');
     }
 }

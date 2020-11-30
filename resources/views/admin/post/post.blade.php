@@ -62,13 +62,14 @@
                     <td>  {{ Illuminate\Support\Str::limit($post->title, 10,'...') }}  </td>
                     <td>{{ $post->user->name }}</td>
                     <td>{{ $post->postType->name }}</td>
-                    <td>{{ $post->created_at->diffForHumans() }}:{{ $post->created_at }}</td>
+                    <td>{{ $post->created_at->toDateString() }} <div class="float-right">{{ $post->created_at->diffForHumans() }}</div></td>
                     @can('admin.posts.update',Auth::user())
                     <td><a href={{ route('admin.posts.edit',$post->id) }}><i class="ml-3 fas fa-edit"></i></a></td>
                     @endcan
                     @can('admin.posts.delete',Auth::user())
                     <td><a  id="submit{{ $post->id }}" onclick="event.preventDefault();if(confirm('是否要刪除?')){document.getElementById('delete{{ $post->id}}').submit();}" href="#"><i style="color: firebrick;" class="ml-3 fas fa-trash-alt"></i></a>
-                    <form id="delete{{ $post->id}}" style="display: hidden" class="delete" action={{ route('admin.posts.destroy',$post->id) }} method="POST">
+                    <form id="delete{{ $post->id}}" style="display: hidden" class="delete" action='{{ route('admin.posts.destroy',$post->id) }}' 
+                      method="POST">
                     @csrf
                     @method('DELETE')
                     </form>
@@ -95,9 +96,9 @@
                   </tr>
                   </tfoot>
                 </table>
-                <div class="offset-lg-3 mt-3 ">
+{{--                 <div class="offset-lg-3 mt-3 ">
                 {{ $posts->links() }}
-                </div>
+                </div> --}}
               </div>
               <!-- /.card-body -->
             </div>
@@ -121,19 +122,26 @@
 		<script src={{ asset('admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}></script>
 		<script>
 		  $(function () {
-		    $("#example1").DataTable({
-		      "responsive": true,
-		      "autoWidth": false,
-		    });
-		    $('#example2').DataTable({
-		      "paging": false,
-		      "lengthChange": false,
-		      "searching": false,
-		      "ordering": true,
-		      "info": false,
-		      "autoWidth": false,
-		      "responsive": true,
-		    });
+        $('#example2').DataTable({
+          "paging": true,
+          "lengthChange": false,
+          "pageLength": 5,
+          "searching": true,
+          "ordering": true,
+          "info": false,
+          "autoWidth": false,
+          "responsive": true,
+          "language": {
+              "emptyTable":"無相關資料",
+              "search":"搜尋:",
+              "paginate": {
+                "first":"第一頁",
+                "last":"最後一頁",
+                "next":"下一頁",
+                "previous":"上一頁"
+            },
+          }
+        });
 		  });
 </script>
     @endsection

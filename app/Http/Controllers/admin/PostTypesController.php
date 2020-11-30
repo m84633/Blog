@@ -22,7 +22,7 @@ class PostTypesController extends Controller
     
     public function index()
     {
-        $types=PostType::paginate(5);
+        $types=PostType::all();
         return view('admin.type.type',compact('types'));
     }
 

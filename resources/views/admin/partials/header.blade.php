@@ -15,8 +15,8 @@
 
     <!-- SEARCH FORM -->
     <form  class="form-inline ml-3">
-      <div class="input-group input-group-sm">
-        <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search" v-model="message">
+      <div class="input-group input-group-sm" style="display: none" v-show="showSearch">
+        <input class="form-control form-control-navbar"  type="search" placeholder="Search" aria-label="Search" v-model="message">
         <div class="input-group-append">
           <button class="btn btn-navbar" type="submit">
             <i class="fas fa-search"></i>
@@ -37,7 +37,7 @@
           <a href="#" class="dropdown-item">
             <!-- Message Start -->
             <div class="media">
-              <img src={{asset('admin/dist/img/user1-128x128.jpg')}} alt="User Avatar" class="img-size-50 mr-3 img-circle">
+              <img src='{{asset('admin/dist/img/user1-128x128.jpg')}}' alt="User Avatar" class="img-size-50 mr-3 img-circle">
               <div class="media-body">
                 <h3 class="dropdown-item-title">
                   Brad Diesel
@@ -53,7 +53,7 @@
           <a href="#" class="dropdown-item">
             <!-- Message Start -->
             <div class="media">
-              <img src={{asset('admin/dist/img/user8-128x128.jpg')}} alt="User Avatar" class="img-size-50 img-circle mr-3">
+              <img src='{{asset('admin/dist/img/user8-128x128.jpg')}}' alt="User Avatar" class="img-size-50 img-circle mr-3">
               <div class="media-body">
                 <h3 class="dropdown-item-title">
                   John Pierce
@@ -69,7 +69,7 @@
           <a href="#" class="dropdown-item">
             <!-- Message Start -->
             <div class="media">
-              <img src={{asset('admin/dist/img/user3-128x128.jpg')}} alt="User Avatar" class="img-size-50 img-circle mr-3">
+              <img src='{{asset('admin/dist/img/user3-128x128.jpg')}}' alt="User Avatar" class="img-size-50 img-circle mr-3">
               <div class="media-body">
                 <h3 class="dropdown-item-title">
                   Nora Silvester
@@ -89,33 +89,43 @@
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="far fa-bell"></i>
-          @if(Auth::user()->unreadnotifications->count())
-          <span class="badge badge-warning navbar-badge">{{ Auth::user()->unreadnotifications->count() }}</span>
-          @endif
+          {{-- @if(Auth::user()->unreadnotifications->count()) --}}
+          <span v-if="notReadCount" class="badge badge-warning navbar-badge">@{{ notReadCount }}</span>
+          {{-- @endif --}}
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <span class="dropdown-item dropdown-header">{{ Auth::user()->notifications->count() }}條通知</span>
-          @foreach(auth()->user()->unreadNotifications as $notification)
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item text-white bg-danger">
-            <i class="fas fa-envelope mr-2"></i> {{ $notification->data['data'] }}
-            <span class="float-right text-white text-sm">{{ $notification->created_at->diffForHumans() }}</span>
-          </a>
-          @endforeach
-          @foreach(auth()->user()->readNotifications as $notification)
+          <span v-if="haveNot" class="dropdown-item dropdown-header">共有@{{ notCount }}條通知</span>
+          <span v-if="!haveNot" class="dropdown-item dropdown-header">目前沒有通知</span>
+          <no_read_not v-for="(value,index) in notRead" :data="value" :key="index"></no_read_not>
+          <read_not v-if="notAll" v-for="(value,index) in Read.slice(0,ReadLoop)" :data="value" :key="value.id"></read_not>
+          <read_not v-if="!notAll" v-for="(value,index) in Read" :data="value" :key="value.id"></read_not>
+          {{-- @foreach(auth()->user()->unreadNotifications as $notification) --}}
+          {{-- <div class="dropdown-divider"> </div> --}}
+{{--             <a href="#" class="dropdown-item text-white bg-danger">
+              <i class="fas fa-envelope mr-2"></i> {{ $notification->data['data'] }}
+              <span class="float-right text-white text-sm">{{ $notification->created_at->diffForHumans() }}</span>
+            </a> --}}
+         
+          {{-- @endforeach --}}
+{{--           @foreach(auth()->user()->readNotifications as $notification)
           @if($loop->iteration == 5)
             @break
-          @endif
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
+          @endif --}}
+          {{-- <div class="dropdown-divider"></div> --}}
+  {{--         <a href="#" class="dropdown-item">
             <i class="fas fa-envelope mr-2"></i> {{ $notification->data['data'] }}
             <span class="float-right text-muted text-sm">{{ $notification->created_at->diffForHumans() }}</span>
-          </a>
-          @endforeach
+          </a> --}}
+{{--           @endforeach --}}
+        <div v-if="haveNot">
           <div class="dropdown-divider"></div>
-          <a href="{{ route('mark') }}" class="dropdown-item dropdown-footer">將所有通知視為已讀</a>
+          <a href="#" class="dropdown-item dropdown-footer" @click.prevent.stop="mark">將所有通知視為已讀</a>
           <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
+          
+            <a v-if="notAll" href="#" class="dropdown-item dropdown-footer" @click.prevent.stop="seeAll">查看更多通知</a>
+            <a v-if="!notAll" href="#" class="dropdown-item dropdown-footer" @click.prevent.stop="seeAll">顯示較少通知</a>
+            <a href="#" class="dropdown-item dropdown-footer" @click.prevent.stop="deleteAll">刪除所有通知</a>
+          </div>
         </div>
       </li>
       <li class="nav-item">

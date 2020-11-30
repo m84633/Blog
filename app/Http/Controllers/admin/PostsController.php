@@ -28,7 +28,9 @@ class PostsController extends Controller
 
     public function index()
     {   
-       $posts=Post::orderBy('created_at','DESC')->paginate(5);
+        $url = url()->previous();
+        // dd($url);
+        $posts=Post::orderBy('created_at','DESC')->get();
        // $truncated = Str::limit('大家好啊', 2, ' (...)');
         return view('admin.post.post',compact('posts'));
     }
@@ -121,6 +123,7 @@ class PostsController extends Controller
     }
 
     public function search(Request $request){
+        // dd($url);
         $keyword = $request->keyword;
         return Post::with('user')->where('title', 'LIKE', "%$keyword%")->orwhere('content', 'LIKE', "%$keyword%")->orWhereHas('user',function (Builder $query) use($keyword){
                 $query->where('name','LIKE',"%$keyword%");

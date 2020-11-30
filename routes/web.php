@@ -56,20 +56,28 @@ Route::get('not', function () {
     $users = Admin::all();
     foreach ($users as $user) {
         $user->notify(new mynoti());
+    // $user->notifications()->delete();
     }
 });
-Route::get('markasread', function () {
+Route::post('markasread', function () {
 
     Auth::user()->unreadNotifications->markAsRead();
     // foreach (Auth::user()->unreadNotifications as $noti) {
     //     $noti->markasread();
     // }
-    return redirect()->back();
+    // return redirect()->back();
 })->name('mark')->middleware('auth:admin');
 Route::get('note', function () {
     $user = Admin::find(6)->get(); 
     $sub = '嗨';
     Notification::send($user, new mynoti());
+});
+Route::post('deletenot',function(){
+    $id = request()->id;
+    $user = Admin::find($id);
+    if($user){
+        $user->notifications()->delete();
+    }
 });
 //notify
 
@@ -132,8 +140,11 @@ Route::namespace('admin')->name('admin.')->group(function () {
     //首頁vue拿資料
     Route::post('getPosts', 'PostsController@getAllPosts');
 
-    //searchBar
+    //searchBar (首頁)
     Route::post('searchBack','PostsController@search');
+    //searchBar (使用者)
+    Route::post('getUsers','UsersController@getAllUsers');
+    // Route::post('searchUser','UsersController@search');
 
 });
 // Route::get('foo', function () {

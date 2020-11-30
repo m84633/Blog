@@ -69,9 +69,9 @@
                   </tr>
                   </tfoot>
                 </table> 
-              <div class="offset-lg-3 mt-3">
+{{--               <div class="offset-lg-3 mt-3">
               {{ $types->links() }}
-              </div>
+              </div> --}}
               </div>
               <!-- /.card-body -->
              
@@ -95,20 +95,27 @@
 		<script src={{ asset('admin/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}></script>
 		<script src={{ asset('admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}></script>
 		<script>
-		  $(function () {
-		    $("#example1").DataTable({
-		      "responsive": true,
-		      "autoWidth": false,
-		    });
-		    $('#example2').DataTable({
-		      "paging": false,
-		      "lengthChange": false,
-		      "searching": false,
-		      "ordering": true,
-		      "info": false,
-		      "autoWidth": false,
-		      "responsive": true,
-		    });
-		  });
+      $(function () {
+        $('#example2').DataTable({
+          "paging": true,
+          "lengthChange": false,
+          "pageLength": 5,
+          "searching": true,
+          "ordering": true,
+          "info": false,
+          "autoWidth": false,
+          "responsive": true,
+          "language": {
+              "emptyTable":"無相關資料",
+              "search":"搜尋:",
+              "paginate": {
+                "first":"第一頁",
+                "last":"最後一頁",
+                "next":"下一頁",
+                "previous":"上一頁"
+            },
+          }
+        });
+      });
 </script>
     @endsection
