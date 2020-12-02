@@ -54,8 +54,9 @@ Route::post('like','PostsController@like');
 //notify
 Route::get('not', function () {
     $users = Admin::all();
+    $message = '通知6';
     foreach ($users as $user) {
-        $user->notify(new mynoti());
+        $user->notify(new mynoti($message));
     // $user->notifications()->delete();
     }
 });

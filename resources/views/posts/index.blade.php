@@ -275,10 +275,10 @@
         var like={
             props:['post_id','user_id','likecount','equser'],
             template:`<div>
-                        <a class="thumb"  href="#">
+                        <a class="thumb" style="cursor: pointer;">
                             <small>@{{ count }}&nbsp;&nbsp;&nbsp;</small>
-                            <i v-if="clicked != 1" @click.prevent='LikeIt'  class="fas fa-thumbs-up"></i>
-                            <i v-else style="color:DodgerBlue"  @click.prevent='LikeIt' class="fas fa-thumbs-up"></i>
+                            <i v-if="clicked != 1" @click.prevent.stop='LikeIt'  class="fas fa-thumbs-up"></i>
+                            <i v-else style="color:DodgerBlue"  @click.prevent.stop='LikeIt' class="fas fa-thumbs-up"></i>
                         </a>
                     </div>`,
             methods:{

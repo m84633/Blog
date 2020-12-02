@@ -59,7 +59,7 @@
                     @foreach($posts as $post)
                   <tr>
                     <td>{{ ($loop->index)+1 }}</td>
-                    <td>  {{ Illuminate\Support\Str::limit($post->title, 10,'...') }}  </td>
+                    <td>  {{ Illuminate\Support\Str::limit($post->title, 20,'...') }}  </td>
                     <td>{{ $post->user->name }}</td>
                     <td>{{ $post->postType->name }}</td>
                     <td>{{ $post->created_at->toDateString() }} <div class="float-right">{{ $post->created_at->diffForHumans() }}</div></td>

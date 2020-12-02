@@ -6,7 +6,7 @@
            alt="AdminLTE Logo"
            class="brand-image img-circle elevation-3"
            style="opacity: .8">
-      <span class="brand-text font-weight-light"><b>Hello</b> Blog</span>
+      <span class="brand-text font-weight-light"><b>My</b> Blog</span>
     </a>
 
     <!-- Sidebar -->
@@ -17,7 +17,7 @@
           <img src={{ route('admin.showAvatar') }} class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">{{ Auth::user()->name }}</a>
+          <a href="{{ route('admin.users.edit',auth()->id()) }}" class="d-block">{{ Auth::user()->name }}</a>
         </div>
       </div>
 

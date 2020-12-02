@@ -33,7 +33,7 @@
 @show
 
     <script>
-          var no_read_not = {
+          let no_read_not = {
               props:['data'],
               template:`
                         <div>
@@ -52,11 +52,11 @@
               }
           }
 
-          var read_not = {
+          let read_not = {
             props:['data'],
             template:`
                         <a href="#" class="dropdown-item">
-                        <i class="fas fa-envelope mr-2"></i>@{{ data.data.data }}}
+                        <i class="fas fa-envelope mr-2"></i>@{{ data.data.data }}
                         <span class="float-right text-muted text-sm">@{{ diffForHumans }}</span>
                         </a>`,
             computed:{
@@ -69,7 +69,7 @@
             }                      
           }
 
-          var post={
+          let post={
             props:['title','content','created_at','user'],
             template:`      
                       <div class="card">
@@ -109,8 +109,8 @@
 
           } 
 
-          var url = window.location.href 
-          var page = url.split('=')[1]
+          let url = window.location.href 
+          let page = url.split('=')[1]
 
           new Vue({
             el:'#app',
@@ -163,7 +163,8 @@
                   });
               }
             },
-            mounted(){
+            created(){
+                this.notReadCount = {{Auth::user()->unreadnotifications->count()}}
                 var url = window.location.href
                 var reg = RegExp(/admin\/home/)
                 if(reg.test(url)){
@@ -176,7 +177,6 @@
                   .then(response => {
                     this.posts = response.data.data
                     // console.log(response);
-                    this.notReadCount = {{Auth::user()->unreadnotifications->count()}}
                     this.notCount = {{ Auth::user()->notifications->count() }}
                     this.notRead = {!! auth()->user()->unreadNotifications !!}
                     this.Read = {!! auth()->user()->readNotifications !!}
