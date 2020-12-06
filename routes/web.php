@@ -108,8 +108,8 @@ Route::resource('users', 'UsersController');
 
 
 Route::prefix('login/social')->name('social.')->group(function () {
-    Route::get('{provider}/redirect', 'Auth\SocialController@getSocialRedirect')->name('redirect');
-    Route::get('{provider}/callback', 'Auth\SocialController@getSocialCallback')->name('callback');
+    Route::get('{provider}/redirect', 'Auth\LoginController@redirectToProvider')->name('redirect');
+    Route::get('{provider}/callback', 'Auth\LoginController@handleProviderCallback')->name('callback');
 });
 Route::get('practice', 'HomeController@practice')->name('practice');
 

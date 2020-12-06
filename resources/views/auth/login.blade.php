@@ -69,15 +69,24 @@
                             </div>
                         </div>
 
-                        {{-- <hr> --}}
+                        <hr>
 
-{{--                         <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-2 text-center">
-                                <p>其他登入方式</p>
-                                <a href="{{ route('social.redirect', ['provider' => 'facebook']) }}" class="btn btn-md btn-primary btn-block">Facebook</a>
-                                <a href="{{ route('social.redirect', ['provider' => 'google']) }}" class="btn btn-md btn-danger btn-block">Google</a>
+                        <div class="form-group row mb-0">
+                            <div class="col-md-12">
+                                <div class="d-flex justify-content-center">
+                                    <p class="">其他登入方式</p>
+                                </div>
+                                {{-- <a href="{{ route('social.redirect', ['provider' => 'facebook']) }}" class="btn btn-md btn-primary btn-block">Facebook</a> --}}
+                                <div class="d-flex justify-content-center">
+                                    <div style="padding: 3px; background-color: white" class="border border-primary rounded">
+                                      <a style="text-decoration: none" class="hollow button primary" href="{{ route('social.redirect', ['provider' => 'google']) }}">
+                                        <img width="15px" style="margin-bottom:3px; margin-right:5px" alt="Google login" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
+                                        <font style="color: ">Sign in with Google</font>
+                                      </a>
+                                    </div>
+                                </div>
                             </div>
-                        </div> --}}
+                        </div>
 
                     </form>
                 </div>
@@ -86,3 +95,6 @@
     </div>
 </div>
 @endsection
+@push('script')
+
+@endpush
