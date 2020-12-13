@@ -41,7 +41,7 @@ class LoginController extends Controller
     }
 
     public function redirectToProvider($provider)
-    {
+    {   
         return Socialite::driver('google')->redirect();
     }
 
@@ -58,6 +58,12 @@ class LoginController extends Controller
             $new_user->password = bcrypt('opkl23584');
             $new_user->save();
             Auth::login($new_user);
+        }
+        if(session('old_url')){
+            $old_url = session()->get('old_url');
+            session()->forget('old_url');
+            session()->save();
+            return redirect()->to($old_url);
         }
 
         return redirect('/');
