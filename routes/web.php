@@ -25,7 +25,12 @@ Route::get('search', 'HomeController@search')->name('search');
 //array
 Route::get('fevor', function()
 {
+    $uuid = Str::uuid();
+    echo $uuid;
+    $c='你好';
+    echo "{$c}我是";
     $a=[];
+
     $a['comments']=5;
     $a['title']=6;
         //結論:collect的話,$a->title == $a['title']; array只能用[]

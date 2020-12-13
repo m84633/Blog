@@ -15,6 +15,11 @@
         .navbar-shadow{
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.09);
         }
+        
+        [v-cloak] {
+            display: none;
+        }
+
         @section('style')
         @show
     </style>

@@ -18,4 +18,9 @@
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script> --}}
   @section('head')
   @show 
+  <style>
+      [v-cloak] {
+        display: none;
+      }
+  </style>
 </head>

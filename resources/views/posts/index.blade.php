@@ -16,7 +16,7 @@
 }
 @endsection
 @section('test')
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 @endsection
 <div class="container" id="app">
@@ -125,7 +125,7 @@
                                                 @csrf 
                                                 <span class="mr-1">{{ $post->comments->count() }}&nbsp;則回應</span>
 
-                                                <like equser="{{ $post->likes }}" likecount="{{ $post->likes->count() }}"  post_id="{{ $post->id }}" user_id="{{ auth()->id() }}">{{ $post->likes->count() }}</like>
+                                                <like  equser="{{ $post->likes }}" likecount="{{ $post->likes->count() }}"  post_id="{{ $post->id }}" user_id="{{ auth()->id() }}">{{ $post->likes->count() }}</like>
                                                 <a href="{{ route('posts.edit', ['id' => $post->id]) }}" class=" btn btn-md btn-primary">
                                                     <i class="fas fa-pencil-alt"></i>
                                                     <span class="pl-1">編輯文章</span>
@@ -276,7 +276,7 @@
             props:['post_id','user_id','likecount','equser'],
             template:`<div>
                         <a class="thumb" style="cursor: pointer;">
-                            <small>@{{ count }}&nbsp;&nbsp;&nbsp;</small>
+                            <small v-cloak>@{{ count }}&nbsp;&nbsp;&nbsp;</small>
                             <i v-if="clicked != 1" @click.prevent.stop='LikeIt'  class="fas fa-thumbs-up"></i>
                             <i v-else style="color:DodgerBlue"  @click.prevent.stop='LikeIt' class="fas fa-thumbs-up"></i>
                         </a>

@@ -90,7 +90,7 @@
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="far fa-bell"></i>
           {{-- @if(Auth::user()->unreadnotifications->count()) --}}
-          <span v-if="notReadCount" class="badge badge-warning navbar-badge">@{{ notReadCount }}</span>
+          <span v-cloak v-if="notReadCount" class="badge badge-warning navbar-badge">@{{ notReadCount }}</span>
           {{-- @endif --}}
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
